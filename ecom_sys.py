@@ -38,13 +38,11 @@ te = TransactionEncoder()
 te_data = te.fit(transactions).transform(transactions)
 df = pd.DataFrame(te_data, columns=te.columns_)
 
-# Encoding
-te = TransactionEncoder()
-te_data = te.fit(transactions).transform(transactions)
-df = pd.DataFrame(te_data, columns=te.columns_)
-
 # Apriori
 frequent_itemsets = apriori(df, min_support=0.2, use_colnames=True)
+
+# ✅ IMPORTANT: Generate Rules
+rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.5)
 
 # 🔹 Recommendation Function
 def recommend(product):
@@ -75,17 +73,17 @@ if st.button("Get Recommendation"):
     else:
         st.warning("No strong recommendations found")
 
-# 🔹 UI Input
-product = st.selectbox("Select Product", df.columns)
+# ⭐ Graph: Item Frequency
+st.subheader("📊 Item Frequency")
+item_counts = df.sum().sort_values(ascending=False)
 
-if st.button("Get Recommendation"):
-    result = recommend(product)
-    if result:
-        st.success(f"Recommended items for {product}: {result}")
-    else:
-        st.warning("No strong recommendations found")
+plt.figure()
+item_counts.plot(kind='bar')
+plt.xlabel("Items")
+plt.ylabel("Frequency")
+st.pyplot(plt)
 
-# ⭐ Graph 2: Support Values
+# ⭐ Graph: Support Values
 st.subheader("📊 Frequent Itemsets Support")
 
 plt.figure()
