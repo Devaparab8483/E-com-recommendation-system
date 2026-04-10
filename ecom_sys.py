@@ -48,14 +48,21 @@ frequent_itemsets = apriori(df, min_support=0.3, use_colnames=True)
 
 # 🔹 Recommendation Function
 def recommend(product):
-    rec = rules[rules['antecedents'].apply(lambda x: product in x)]
+    if rules.empty:
+        return []
+    
+    rec = rules[rules['antecedents'].apply(lambda x: product in list(x))]
+    
+    if rec.empty:
+        return []
+    
     rec = rec.sort_values(by='confidence', ascending=False)
-
+    
     recommendations = []
     for i in rec['consequents']:
-        for item in i:
+        for item in list(i):
             recommendations.append(item)
-
+    
     return list(set(recommendations))
 
 # 🔹 UI Input
