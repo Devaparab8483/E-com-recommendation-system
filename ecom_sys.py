@@ -11,7 +11,7 @@ Original file is located at
 
 #pip install streamlit mlxtend pandas matplotlib
 
-!pip install mlxtend
+#!pip install mlxtend
 
 import streamlit as st
 import pandas as pd
