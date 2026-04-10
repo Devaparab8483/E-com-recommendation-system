@@ -9,7 +9,7 @@ Original file is located at
 **Ecommerce Recommendation System**
 """
 
-pip install streamlit mlxtend pandas matplotlib
+#pip install streamlit mlxtend pandas matplotlib
 
 !pip install mlxtend
 
