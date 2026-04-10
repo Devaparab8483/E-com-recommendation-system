@@ -44,7 +44,7 @@ te_data = te.fit(transactions).transform(transactions)
 df = pd.DataFrame(te_data, columns=te.columns_)
 
 # Apriori
-frequent_itemsets = apriori(df, min_support=0.3, use_colnames=True)
+frequent_itemsets = apriori(df, min_support=0.2, use_colnames=True)
 
 # 🔹 Recommendation Function
 def recommend(product):
